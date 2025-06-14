@@ -7,3 +7,6 @@ class Pizza(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     ingredients = db.Column(db.String)
+
+    restaurant_pizzas= db.relationship('RestaurantPizzas', backref='pizza', cascade='all, delete-orphan')
+    serialize_rules=('restaurant_pizzas.pizza')

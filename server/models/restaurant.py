@@ -8,4 +8,9 @@ class Restaurant(db.Models, SerializerMixin):
     name= db.Column(db.String)
     address= db.Column(db.String)
 
-    
+    restaurant_pizzas = db.relattionship(
+        'RestaurantPizza',
+        backref = 'restuarant',
+        cascade='all, delete-orphan'
+    )
+    serialize_rules=('-restaurant_pizzas.restaurant')
