@@ -13,4 +13,4 @@ class Restaurant(db.Model, SerializerMixin):
         backref = 'restuarant',
         cascade='all, delete-orphan'
     )
-    serialize_rules=('-restaurant_pizzas.restaurant')
+    serialize_rules=('-restaurant_pizzas',)

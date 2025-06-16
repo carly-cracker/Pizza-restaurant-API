@@ -9,4 +9,4 @@ class Pizza(db.Model, SerializerMixin):
     ingredients = db.Column(db.String)
 
     restaurant_pizzas= db.relationship('RestaurantPizza', backref='pizza', cascade='all, delete-orphan')
-    serialize_rules=('restaurant_pizzas.pizza')
+    serialize_rules=('-restaurant_pizzas',)

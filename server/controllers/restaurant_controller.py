@@ -4,13 +4,13 @@ from server.models import db
 
 restaurant_bp = Blueprint('restaurant_bp', __name__)
 
-@restaurant_bp.route('/restaurants', methods=['GET'])
+@restaurant_bp.route('/', methods=['GET'])
 def get_restuarnts():
     restaurants= Restaurant.query.all()
-    response = [restaurants.to_dict(rules=('-restaurant_pizzas',)) for restaurant in restaurants] 
+    response = [restaurant.to_dict(rules=('-restaurant_pizzas',)) for restaurant in restaurants] 
     return make_response(jsonify(response), 200)
 
-@restaurant_bp.route('/restaurants/<int:id>', methods=['GET','DELETE'])
+@restaurant_bp.route('/<int:id>', methods=['GET','DELETE'])
 def restaurant_by_id(id):
     restaurant = Restaurant.query.filter(Restaurant.id==id).first()
     if restaurant is None:
@@ -25,4 +25,4 @@ def restaurant_by_id(id):
     elif request.method =='DELETE':
         db.session.delete(restaurant)
         db.session.commit()
-        return make_response(jsonify({'message':f'the restaurant{id} is deleted'}), 200)
+        return make_response(jsonify({'message':f'the restaurant{id} is deleted'}), 204)
